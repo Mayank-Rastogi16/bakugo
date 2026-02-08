@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom & Blossom - Premium Flower Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Header Bar -->
+    <div class="header-bar">
+        <div class="header-content">
+            <span class="delivery-info">📦 Free Delivery on Orders Over $50</span>
+        </div>
+    </div>
+
+    <!-- Navigation Bar (Amazon-Style) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🌸 Bloom & Blossom</div>
+            <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link swipe-link" data-direction="right">Home</a></li>
+                
+                <li class="nav-dropdown">
+                    <a href="#flowers" class="nav-link dropdown-toggle swipe-link" data-direction="right">🌺 Flowers by Type</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="swipe-link" data-direction="right" onclick="filterFlowers('all')">All Flowers</a>
+                        <a href="#" class="swipe-link" data-direction="right" onclick="filterFlowers('roses')">🌹 Roses</a>
+                        <a href="#" class="swipe-link" data-direction="right" onclick="filterFlowers('tulips')">🌷 Tulips</a>
+                        <a href="#" class="swipe-link" data-direction="right" onclick="filterFlowers('sunflowers')">🌻 Sunflowers</a>
+                        <a href="#" class="swipe-link" data-direction="right" onclick="filterFlowers('mixed')">💐 Mixed Bouquets</a>
+                    </div>
+                </li>
+
+                <li class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle swipe-link" data-direction="left">❓ Help & Support</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="swipe-link" data-direction="left" onclick="showModal('shipping')">🚚 Shipping Information</a>
+                        <a href="#" class="swipe-link" data-direction="left" onclick="showModal('returns')">↩️ Returns & Exchange</a>
+                        <a href="#" class="swipe-link" data-direction="left" onclick="showModal('faq')">❓ FAQ</a>
+                        <a href="#contact" class="swipe-link" data-direction="left">💬 Contact Us</a>
+                    </div>
+                </li>
+
+                <li><a href="#about" class="nav-link swipe-link" data-direction="right">About Us</a></li>
+                <li><a href="#cart" class="nav-link cart-link swipe-link" data-direction="right">🛒 Cart (<span id="cart-count">0</span>)</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="nav-swipe" class="nav-swipe"></div>
+
+    <!-- Modals for Help Section -->
+    <div id="shipping-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('shipping')">&times;</span>
+            <h2>🚚 Shipping Information</h2>
+            <p><strong>Free Delivery:</strong> On orders over $50</p>
+            <p><strong>Standard Shipping:</strong> 1-3 business days</p>
+            <p><strong>Express Shipping:</strong> Same-day available in select areas</p>
+            <p><strong>Flower Freshness Guarantee:</strong> If flowers aren't fresh upon arrival, we'll replace them free!</p>
+        </div>
+    </div>
+
+    <div id="returns-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('returns')">&times;</span>
+            <h2>↩️ Returns & Exchange Policy</h2>
+            <p><strong>7-Day Money Back Guarantee:</strong> Not satisfied? Return within 7 days for a full refund.</p>
+            <p><strong>Fresh Flower Care:</strong> Flowers last 7-14 days with proper care. Learn tips at checkout.</p>
+            <p><strong>Damaged Flowers:</strong> Report within 24 hours for free replacement.</p>
+            <p><strong>Easy Exchange:</strong> Don't like what you ordered? Choose a different arrangement.</p>
+        </div>
+    </div>
+
+    <div id="faq-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('faq')">&times;</span>
+            <h2>❓ Frequently Asked Questions</h2>
+            <p><strong>Q: How long do flowers last?</strong></p>
+            <p>A: With proper care (fresh water, cool room), flowers last 7-14 days.</p>
+            <p><strong>Q: Can I customize orders?</strong></p>
+            <p>A: Yes! Contact our team for custom arrangements and special requests.</p>
+            <p><strong>Q: Do you deliver on weekends?</strong></p>
+            <p>A: Yes! We deliver 7 days a week in most areas.</p>
+            <p><strong>Q: Can I schedule deliveries in advance?</strong></p>
+            <p>A: Absolutely! Schedule up to 1 year in advance.</p>
+        </div>
+    </div>
+
+    <!-- Hero Section with Real Image -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <img src="https://images.unsplash.com/photo-1683303802193-75c8a072cbc0?auto=format&fit=crop&w=1600&q=80" alt="Pink and white tulips" class="hero-image">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to Bloom & Blossom</h1>
+            <p class="hero-subtitle">Premium Fresh Flowers Delivered to Your Doorstep</p>
+            <a href="#flowers" class="btn btn-primary">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Category Filter Section -->
+    <section class="category-section">
+        <h2 class="section-title">🌸 Our Beautiful Flowers</h2>
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterFlowers('all')">All Flowers</button>
+            <button class="filter-btn" onclick="filterFlowers('roses')">🌹 Roses</button>
+            <button class="filter-btn" onclick="filterFlowers('tulips')">🌷 Tulips</button>
+            <button class="filter-btn" onclick="filterFlowers('sunflowers')">🌻 Sunflowers</button>
+            <button class="filter-btn" onclick="filterFlowers('mixed')">💐 Mixed</button>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section id="flowers" class="products">
+        <div class="products-grid">
+            <!-- Roses -->
+            <div class="product-card" data-category="roses">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1620346328449-f8fb90a40ad5?w=300&h=300&fit=crop" alt="Red Rose Bouquet" class="product-image">
+                    <span class="badge badge-premium">Premium</span>
+                </div>
+                <h3 class="product-name">Red Rose Bouquet</h3>
+                <p class="product-description">Classic beauty - 12 premium red roses in elegant vase</p>
+                <div class="product-rating">⭐⭐⭐⭐⭐ (148 reviews)</div>
+                <p class="product-price">$49.99</p>
+                <button class="btn btn-add-cart" onclick="addToCart('Red Rose Bouquet', 49.99)">Add to Cart</button>
+            </div>
+
+            <!-- Roses -->
+            <div class="product-card" data-category="roses">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1660675865775-15b4a15d1a68?w=300&h=300&fit=crop" alt="Rose Basket Special" class="product-image">
+                    <span class="badge badge-bestseller">Best Seller</span>
+                </div>
+                <h3 class="product-name">Rose Basket Special</h3>
+                <p class="product-description">24 red roses in wicker basket - luxury gift</p>
+                <div class="product-rating">⭐⭐⭐⭐⭐ (189 reviews)</div>
+                <p class="product-price">$69.99</p>
+                <button class="btn btn-add-cart" onclick="addToCart('Rose Basket Special', 69.99)">Add to Cart</button>
+            </div>
+
+            <!-- Tulips -->
+            <div class="product-card" data-category="tulips">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1683209480600-14ebea361a59?w=300&h=300&fit=crop" alt="Pink Tulip Mix" class="product-image">
+                    <span class="badge badge-new">New</span>
+                </div>
+                <h3 class="product-name">Pink Tulip Mix</h3>
+                <p class="product-description">Vibrant pink tulips - fresh spring collection</p>
+                <div class="product-rating">⭐⭐⭐⭐⭐ (92 reviews)</div>
+                <p class="product-price">$39.99</p>
+                <button class="btn btn-add-cart" onclick="addToCart('Pink Tulip Mix', 39.99)">Add to Cart</button>
+            </div>
+
+            <!-- Tulips -->
+            <div class="product-card" data-category="tulips">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1664299212100-ad678539b494?w=300&h=300&fit=crop" alt="Rainbow Tulip Field" class="product-image">
+                    <span class="badge badge-popular">Popular</span>
+                </div>
+                <h3 class="product-name">Rainbow Tulip Field</h3>
+                <p class="product-description">Mixed color tulips - beautiful spring arrangement</p>
+                <div class="product-rating">⭐⭐⭐⭐ (156 reviews)</div>
+                <p class="product-price">$44.99</p>
+                <button class="btn btn-add-cart" onclick="addToCart('Rainbow Tulip Field', 44.99)">Add to Cart</button>
+            </div>
+
+            <!-- Sunflowers -->
+            <div class="product-card" data-category="sunflowers">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1706341441678-a04e8068570e?w=300&h=300&fit=crop" alt="Sunflower Joy" class="product-image">
+                    <span class="badge badge-bestseller">Best Seller</span>
+                </div>
+                <h3 class="product-name">Sunflower Joy</h3>
+                <p class="product-description">Bright yellow sunflowers - spreads happiness</p>
+                <div class="product-rating">⭐⭐⭐⭐⭐ (203 reviews)</div>
+                <p class="product-price">$34.99</p>
+                <button class="btn btn-add-cart" onclick="addToCart('Sunflower Joy', 34.99)">Add to Cart</button>
+            </div>
+
+            <!-- Sunflowers -->
+            <div class="product-card" data-category="sunflowers">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1689781922550-81cacef1d933?w=300&h=300&fit=crop" alt="Sunflower Field Bouquet" class="product-image">
+                    <span class="badge badge-premium">Premium</span>
+                </div>
+                <h3 class="product-name">Sunflower Field Bouquet</h3>
+                <p class="product-description">Large sunflowers with greenery - rustic elegance</p>
+                <div class="product-rating">⭐⭐⭐⭐⭐ (117 reviews)</div>
+                <p class="product-price">$54.99</p>
+                <button class="btn btn-add-cart" onclick="addToCart('Sunflower Field Bouquet', 54.99)">Add to Cart</button>
+            </div>
+
+            <!-- Mixed -->
+            <div class="product-card" data-category="mixed">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1578439231583-9eca0a363860?w=300&h=300&fit=crop" alt="Premium Mixed Bouquet" class="product-image">
+                    <span class="badge badge-bestseller">Best Seller</span>
+                </div>
+                <h3 class="product-name">Premium Mixed Bouquet</h3>
+                <p class="product-description">Roses, tulips & seasonal flowers - perfect harmony</p>
+                <div class="product-rating">⭐⭐⭐⭐⭐ (234 reviews)</div>
+                <p class="product-price">$59.99</p>
+                <button class="btn btn-add-cart" onclick="addToCart('Premium Mixed Bouquet', 59.99)">Add to Cart</button>
+            </div>
+
+            <!-- Mixed -->
+            <div class="product-card" data-category="mixed">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1620758624293-b2d5a05fab75?w=300&h=300&fit=crop" alt="Tulip & Rose Blend" class="product-image">
+                    <span class="badge badge-new">New</span>
+                </div>
+                <h3 class="product-name">Tulip & Rose Blend</h3>
+                <p class="product-description">Elegant mix of tulips and roses - sophisticated choice</p>
+                <div class="product-rating">⭐⭐⭐⭐ (76 reviews)</div>
+                <p class="product-price">$49.99</p>
+                <button class="btn btn-add-cart" onclick="addToCart('Tulip & Rose Blend', 49.99)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title">About Bloom & Blossom</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Welcome to Bloom & Blossom, your premier destination for exquisite flowers. Since 2010, we've been dedicated to delivering the freshest, most beautiful flowers to celebrate life's special moments.</p>
+                <p>Our expert florists hand-select every flower to ensure premium quality. We work directly with local growers to bring you the most vibrant blooms at the best prices.</p>
+                <h3>Why Choose Us?</h3>
+                <ul class="about-features">
+                    <li>✅ 100% Fresh Flowers - Hand-selected daily</li>
+                    <li>✅ Same-Day Delivery - Available in select areas</li>
+                    <li>✅ Expert Florists - 15+ years of experience</li>
+                    <li>✅ Money-Back Guarantee - We stand by our quality</li>
+                    <li>✅ Sustainable Practices - Eco-friendly packaging</li>
+                </ul>
+            </div>
+            <div class="about-stats">
+                <div class="stat">
+                    <h3>10,000+</h3>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="stat">
+                    <h3>50+</h3>
+                    <p>Flower Varieties</p>
+                </div>
+                <div class="stat">
+                    <h3>24/7</h3>
+                    <p>Customer Support</p>
+                </div>
+                <div class="stat">
+                    <h3>15+</h3>
+                    <p>Years in Business</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Section -->
+    <section id="cart" class="cart-section">
+        <h2 class="section-title">Your Shopping Cart</h2>
+        <div class="cart-container">
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart">Your cart is empty. Add some beautiful flowers!</p>
+            </div>
+            <div class="cart-summary">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery:</span>
+                    <span id="delivery">$10.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax:</span>
+                    <span id="tax">$0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="total">$0.00</span>
+                </div>
+                <a href="checkout.html" class="btn btn-checkout" id="checkoutBtn" style="display: none;">Proceed to Checkout</a>
+                <p class="delivery-info">💳 Secure Checkout | Free delivery on orders over $50</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-content">
+            <div class="contact-form">
+                <form>
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <h3>📞 Contact Information</h3>
+                <p><strong>Phone:</strong> 1-800-FLOWERS (1-800-356-9377)</p>
+                <p><strong>Email:</strong> support@bloomblossom.com</p>
+                <p><strong>Hours:</strong> 24/7 Customer Support</p>
+                <p><strong>Address:</strong> 123 Flower Lane, Bloom City, FL 12345</p>
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Pinterest</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Bloom & Blossom. All rights reserved. | Premium Flowers Delivered with Love 🌹</p>
+        <p>Images sourced from Unsplash | Free to use with attribution</p>
+    </footer>
+
+    <script>
+        // Shopping Cart Logic
+        let cart = [];
+
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            updateCart();
+            alert(`${name} added to cart!`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cart-count');
+            
+            cartCount.textContent = cart.length;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="empty-cart">Your cart is empty. Add some beautiful flowers!</p>';
+                document.getElementById('checkoutBtn').style.display = 'none';
+                updateCartSummary(0, 0);
+                return;
+            }
+
+            let html = '<table class="cart-table"><tr><th>Product</th><th>Price</th><th>Qty</th><th>Total</th><th>Action</th></tr>';
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                html += `<tr>
+                    <td>${item.name}</td>
+                    <td>$${item.price.toFixed(2)}</td>
+                    <td>${item.quantity}</td>
+                    <td>$${itemTotal.toFixed(2)}</td>
+                    <td><button onclick="removeFromCart(${index})" class="btn-remove">Remove</button></td>
+                </tr>`;
+            });
+            html += '</table>';
+            cartItems.innerHTML = html;
+            updateCartSummary(subtotal, cart.length);
+            document.getElementById('checkoutBtn').style.display = 'block';
+        }
+
+        function updateCartSummary(subtotal, itemCount) {
+            const delivery = subtotal > 50 ? 0 : 10;
+            const tax = (subtotal * 0.08).toFixed(2);
+            const total = (subtotal + delivery + parseFloat(tax)).toFixed(2);
+
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('delivery').textContent = `$${delivery.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax}`;
+            document.getElementById('total').textContent = `$${total}`;
+        }
+
+        // Filter Products by Category
+        function filterFlowers(category) {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease-in';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update active filter button
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Modal Functions
+        function showModal(type) {
+            document.getElementById(`${type}-modal`).style.display = 'block';
+        }
+
+        function closeModal(type) {
+            document.getElementById(`${type}-modal`).style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Nav Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('open');
+            });
+
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('open');
+                });
+            });
+        }
+
+        // Dropdown Menu Toggle
+        document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+            dropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+            });
+        });
+
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('active'));
+        });
+
+        // Nav swipe bar animation
+        const swipeBar = document.getElementById('nav-swipe');
+        document.querySelectorAll('.swipe-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const rect = link.getBoundingClientRect();
+                const dir = link.dataset.direction || 'right';
+                const width = rect.width;
+                const left = rect.left + window.scrollX;
+                swipeBar.style.opacity = '1';
+                swipeBar.style.width = '0';
+                swipeBar.style.transform = dir === 'left'
+                    ? `translate(${left + width}px, ${rect.bottom + window.scrollY + 4}px)`
+                    : `translate(${left}px, ${rect.bottom + window.scrollY + 4}px)`;
+
+                requestAnimationFrame(() => {
+                    swipeBar.style.width = `${width}px`;
+                    swipeBar.style.transform = dir === 'left'
+                        ? `translate(${left}px, ${rect.bottom + window.scrollY + 4}px)`
+                        : `translate(${left}px, ${rect.bottom + window.scrollY + 4}px)`;
+                });
+
+                setTimeout(() => {
+                    swipeBar.style.opacity = '0';
+                    swipeBar.style.width = '0';
+                }, 450);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom & Blossom - Secure Checkout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="checkout-page">
+    <div class="header-bar">
+        <div class="header-content">
+            <span class="delivery-info">🔒 Secure Checkout</span>
+            <span class="delivery-info">🌸 Bloom & Blossom</span>
+        </div>
+    </div>
+
+    <section class="checkout-hero">
+        <h1>Complete Your Order</h1>
+        <p>Secure payment simulation — no real transaction is processed.</p>
+    </section>
+
+    <main class="checkout-container">
+        <div class="checkout-card">
+            <div class="checkout-steps">
+                <div class="step active" data-step="review">1. Review</div>
+                <div class="step" data-step="pay">2. Pay</div>
+                <div class="step" data-step="complete">3. Complete</div>
+            </div>
+
+            <div class="checkout-summary">
+                <div>
+                    <h3>Order Summary</h3>
+                    <p class="muted">Your flowers are ready to bloom 💐</p>
+                    <p class="delivery-date" id="deliveryDate"></p>
+                </div>
+                <div class="summary-grid">
+                    <span>Subtotal</span><strong>$49.99</strong>
+                    <span>Delivery</span><strong>$10.00</strong>
+                    <span>Tax</span><strong>$4.00</strong>
+                    <span class="total">Total</span><strong class="total">$63.99</strong>
+                </div>
+            </div>
+
+            <div class="bank-select">
+                <h3>Choose a Bank</h3>
+                <div class="bank-options">
+                    <button class="bank-option active" data-bank="Bloom National">🌸 Bloom National</button>
+                    <button class="bank-option" data-bank="Rosewood Bank">🌹 Rosewood Bank</button>
+                    <button class="bank-option" data-bank="Tulip Trust">🌷 Tulip Trust</button>
+                    <button class="bank-option" data-bank="Sunshine Credit">🌻 Sunshine Credit</button>
+                </div>
+            </div>
+
+            <form class="payment-form" id="paymentForm">
+                <h3>Card Details</h3>
+                <div class="field-row">
+                    <div class="field">
+                        <label>Cardholder Name</label>
+                        <input type="text" placeholder="Ava Bloom" required>
+                    </div>
+                    <div class="field">
+                        <label>Card Number</label>
+                        <input type="text" placeholder="4111 1111 1111 1111" required>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="field">
+                        <label>Expiry</label>
+                        <input type="text" placeholder="08/29" required>
+                    </div>
+                    <div class="field">
+                        <label>CVV</label>
+                        <input type="password" placeholder="123" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-glow" id="payBtn">Pay Now</button>
+                <p class="muted">This is a simulated transaction flow.</p>
+            </form>
+
+            <div class="txn-progress" id="txnProgress">
+                <div class="progress-bar"></div>
+                <p>Connecting to bank...</p>
+            </div>
+
+            <div class="txn-success" id="txnSuccess">
+                <h3>✅ Transaction Complete</h3>
+                <p>Your order has been placed successfully!</p>
+                <div class="success-details">
+                    <span>Bank</span><strong id="bankName">Bloom National</strong>
+                    <span>Reference</span><strong>#BB-7F24A</strong>
+                    <span>Status</span><strong>Paid</strong>
+                </div>
+                <a href="index.html" class="btn btn-primary btn-glow">Back to Shop</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+            const bankButtons = document.querySelectorAll('.bank-option');
+            const bankName = document.getElementById('bankName');
+            const form = document.getElementById('paymentForm');
+            const progress = document.getElementById('txnProgress');
+            const success = document.getElementById('txnSuccess');
+            const payBtn = document.getElementById('payBtn');
+            const steps = document.querySelectorAll('.checkout-steps .step');
+            const deliveryDate = document.getElementById('deliveryDate');
+
+            const eta = new Date();
+            eta.setDate(eta.getDate() + 2);
+            const etaText = eta.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+            deliveryDate.textContent = `Estimated delivery: ${etaText}`;
+
+        bankButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                bankButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                bankName.textContent = btn.dataset.bank;
+            });
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            payBtn.disabled = true;
+            progress.style.display = 'block';
+            form.style.opacity = '0.4';
+
+                const progressSteps = [
+                'Connecting to bank...',
+                'Authorizing payment...',
+                'Finalizing transaction...'
+            ];
+
+            let i = 0;
+            const progressText = progress.querySelector('p');
+            const progressBar = progress.querySelector('.progress-bar');
+            progressBar.style.animation = 'progressFill 2.4s ease forwards';
+
+                steps.forEach(step => step.classList.remove('active'));
+                steps[1].classList.add('active');
+
+            const interval = setInterval(() => {
+                    progressText.textContent = progressSteps[i] || progressSteps[progressSteps.length - 1];
+                i += 1;
+            }, 800);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                progress.style.display = 'none';
+                form.style.display = 'none';
+                success.style.display = 'block';
+                    steps.forEach(step => step.classList.remove('active'));
+                    steps[2].classList.add('active');
+            }, 2600);
+        });
+    </script>
+</body>
+</html>
